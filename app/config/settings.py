@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(BASE_DIR)
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # 사용자가 업로드한 파일이 저장될 Base디렉토리 (settings.MEDIA_ROOT)
 MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 # 유저가 업로드한 파일에 접근하고자 할 때의 prefix URL (settings.MEDIA_URL)
@@ -66,7 +67,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            TEMPLATES_DIR,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
