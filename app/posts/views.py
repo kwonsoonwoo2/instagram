@@ -22,3 +22,7 @@ def post_list(request):
         'posts': posts,
     }
     return render(request, 'posts/post_list.html', context)
+
+
+def post_create(request):
+    return render(request, 'posts/post_create.html')
