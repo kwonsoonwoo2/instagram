@@ -47,10 +47,11 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a href="#" class="btn btn-outline-secondary">Login</a>
+                    <a href="{% url 'members:login' %}" class="btn btn-outline-secondary">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="btn btn-outline-secondary">Signup</a>
+                    <a href="{% url 'members:signup' %}" class="btn btn-outline-secondary">Signup</a>
+                    </form>
                 </li>
                 {% endif %}
             </ul>
