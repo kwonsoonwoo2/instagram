@@ -1,13 +1,12 @@
+from django.conf import settings
 from django.db import models
-
-from members.models import User
 
 
 class Post(models.Model):
     author = models.ForeignKey(
         # <AppName>.<ModelName>
         # 'members.User',
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name='작성자',
     )
@@ -28,7 +27,7 @@ class Comment(models.Model):
         verbose_name='포스트',
     )
     author = models.ForeignKey(
-        'members.User',
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name='작성자',
 

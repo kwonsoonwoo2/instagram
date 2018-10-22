@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 
-from members.models import User
 from .models import Post
 
 from .forms import PostCreateForm
@@ -30,7 +29,7 @@ def post_list(request):
 def post_create(request):
     if request.method == 'POST':
         post = Post(
-            author=User.objects.first(),
+            author=request.user,
             photo=request.FILES['photo'],
         )
         post.save()
@@ -38,6 +37,6 @@ def post_create(request):
     else:
         form = PostCreateForm()
         context = {
-            'form' : form,
+            'form': form,
         }
         return render(request, 'posts/post_create.html', context)
