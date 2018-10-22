@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .models import Post
@@ -27,6 +28,8 @@ def post_list(request):
 
 
 def post_create(request):
+    if not request.user.is_authenticated:
+        return redirect('posts:post-list')
     if request.method == 'POST':
         post = Post(
             author=request.user,
