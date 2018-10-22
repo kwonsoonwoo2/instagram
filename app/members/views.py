@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 from members.forms import LoginForm
@@ -18,3 +18,9 @@ def login_view(request):
             'form': form,
         }
         return render(request, 'members/login.html', context)
+
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('posts:post-list')
