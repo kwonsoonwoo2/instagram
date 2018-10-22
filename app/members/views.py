@@ -34,9 +34,21 @@ def signup_view(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         if User.objects.filter(username=username).exists():
-            return HttpResponse(f'({username})은 이미 사용중입니다')
+            form = SignupForm()
+            context = {
+                'form': form,
+                'error': f'사용자명({username})은 이미 사용중입니다.'
+            }
+            return render(request, 'members/signup.html', context)
+            # return HttpResponse(f'({username})은 이미 사용중입니다')
         if password1 != password2:
-            return HttpResponse(f'비밀번호와 비밀번호 확인란의 값이 일치하지 않습니다.')
+            form = SignupForm()
+            context = {
+                'form': form,
+                'error': f'사용자명({username})은 이미 사용중입니다.'
+            }
+            return render(request, 'members/signup.html', context)
+            # return HttpResponse(f'비밀번호와 비밀번호 확인란의 값이 일치하지 않습니다.')
         user = User.objects.create_user(username=username, password=password1)
         login(request, user)
         return redirect('posts:post-list')
