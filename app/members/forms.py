@@ -1,9 +1,13 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
 
 class LoginForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._user = None
+
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -18,6 +22,24 @@ class LoginForm(forms.Form):
             }
         )
     )
+
+    def clean(self):
+        super().clean()
+        username = self.cleaned_data['username'],
+        password = self.cleaned_data['password'],
+        user = authenticate(
+            username=username,
+            password=password,
+        )
+        if user is None:
+            raise forms.ValidationError('사용자명 또는 비밀번호가 올바르지 않다')
+        self._user = user
+
+    @property
+    def user(self):
+        if self.errors:
+            raise ValueError('폼의 데이터 유효성 검증에 실패하였다')
+        return self._user
 
 
 class SignupForm(forms.Form):

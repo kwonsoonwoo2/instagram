@@ -11,6 +11,11 @@
             {{ field }}
         </div>
         {% endfor %}
+
+        {% for error in form.non_field_errors %}
+            <small class="form-text text-muted text-danger font-weight-bold">{{ error }}</small>
+        {% endfor %}
+
         <button class="btn btn-primary btn-block" type="submit">로그인</button>
     </form>
 </div>
