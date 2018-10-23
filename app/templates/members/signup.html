@@ -6,10 +6,24 @@
     {{ error }}
     <form action="" method="POST">
         {% csrf_token %}
+
+        <!--Form자체의 Error들을 출력-->
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <small class="form-text text-muted">{{ error }}</small>
+            {% endfor %}
+        {% endif %}
+
+        <!--Form이 가진 field들을 순회-->
         {% for field in form %}
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
+
+            <!--각 Field가 가진 Error들을 input밑에 출력-->
+            {% for error in field.errors %}
+                <small class="form-text text-muted">{{ error }}</small>
+            {% endfor %}
         </div>
         {% endfor %}
         <button class="btn btn-primary btn-block" type="submit">가입</button>
