@@ -33,10 +33,7 @@ def signup_view(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1'],
-            )
+            user = form.save()
             login(request, user)
             return redirect('posts:post-list')
     else:

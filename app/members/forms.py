@@ -49,9 +49,18 @@ class SignupForm(forms.Form):
             raise forms.ValidationError('이미 사용중인 유저네임 입니다.')
         return data
 
-    def clean(self):
-        super().clean()
+    def clean_password2(self):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 != password2:
             raise forms.ValidationError('비밀번호랑 비밀번호 확인값이 안맞음요.')
+        return password2
+
+    def save(self):
+        if self.errors:
+            raise ValueError('폼의 데이터 유효성 검증에 실패함')
+        user = User.objects.create_user(
+            self.cleaned_data['username'],
+            self.cleaned_data['password2'],
+        )
+        return user

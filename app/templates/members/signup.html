@@ -10,7 +10,7 @@
         <!--Form자체의 Error들을 출력-->
         {% if form.non_field_errors %}
             {% for error in form.non_field_errors %}
-                <small class="form-text text-muted">{{ error }}</small>
+                <small class="form-text text-muted">- {{ error }}</small>
             {% endfor %}
         {% endif %}
 
