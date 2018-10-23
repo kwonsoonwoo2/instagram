@@ -25,12 +25,9 @@ class LoginForm(forms.Form):
 
     def clean(self):
         super().clean()
-        username = self.cleaned_data['username'],
-        password = self.cleaned_data['password'],
-        user = authenticate(
-            username=username,
-            password=password,
-        )
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        user = authenticate(username=username, password=password)
         if user is None:
             raise forms.ValidationError('사용자명 또는 비밀번호가 올바르지 않다')
         self._user = user
