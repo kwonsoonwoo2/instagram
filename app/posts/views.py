@@ -39,3 +39,6 @@ def post_create(request):
 
     context['form'] = form
     return render(request, 'posts/post_create.html', context)
+
+def comment_create(request, post_pk):
+    pass
