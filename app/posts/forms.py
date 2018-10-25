@@ -38,3 +38,21 @@ class PostCreateForm(forms.Form):
                 content=comment_content,
             )
         return post
+
+
+class CommentCreateForm(forms.Form):
+    content = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'rows': 2,
+            }
+        )
+    )
+
+    def save(self, post, **kwargs):
+        content = self.cleaned_data['content']
+        return post.comments.create(
+            content=content,
+            **kwargs,
+        )

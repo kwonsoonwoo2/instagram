@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import PostCreateForm
-from .models import Post
+from .forms import PostCreateForm, CommentCreateForm
+from .models import Post, Comment
 
 
 def post_list(request):
@@ -22,6 +22,7 @@ def post_list(request):
     posts = Post.objects.all()
     context = {
         'posts': posts,
+        'comment_form': CommentCreateForm(),
     }
     return render(request, 'posts/post_list.html', context)
 
@@ -40,5 +41,20 @@ def post_create(request):
     context['form'] = form
     return render(request, 'posts/post_create.html', context)
 
+
 def comment_create(request, post_pk):
-    pass
+    if request.method == 'POST':
+        post = Post.objects.get(pk=post_pk)
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            form.save(
+                post=post,
+                author=request.user,
+            )
+        return redirect('posts:post-list')
+        # content = request.POST['content']
+        # Comment.objects.create(
+        #     author=request.user,
+        #     post=post,
+        #     content=content,
+        # )

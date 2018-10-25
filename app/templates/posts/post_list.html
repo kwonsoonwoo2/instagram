@@ -27,6 +27,7 @@
             {% if user.is_authenticated %}
             <form action="{% url 'posts:comment-create' post_pk=post.pk %}" method="POST">
                 {% csrf_token %}
+                {{ comment_form.content }}
                 <textarea name="content" id="" cols="30" rows="2" class="form-control"></textarea>
                 <button class="btn btn-primary btn-block" type="submit">작성</button>
             </form>
