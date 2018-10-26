@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div>
@@ -9,6 +10,12 @@
         <div class="card">
             <!--작성자 정보를 나타낼 header부분-->
             <div class="card-header">
+                <span>
+                    <a href="">
+                        <img src="{{ post.author.img_profile.url }}"
+                             style="width: 30px; height: 30px; border-radius: 100%;">
+                    </a>
+                </span>
                 {{ post.author }}
             </div>
             <!--Card의 본문 부분-->
