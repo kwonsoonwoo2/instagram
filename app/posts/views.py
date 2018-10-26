@@ -3,8 +3,8 @@ import re
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import PostCreateForm, CommentCreateForm, CommentForm, PostForm
-from .models import Post, Comment, HashTag
+from .forms import CommentForm, PostForm
+from .models import Post
 
 
 def post_list(request):
@@ -69,9 +69,15 @@ def comment_create(request, post_pk):
 
 def tag_post_list(request, tag_name):
     posts = Post.objects.filter(
-        comment__tags__name=tag_name
+        comments__tags__name=tag_name
     )
     context = {
         'posts': posts,
     }
     return render(request, 'posts/tag_post_list.html', context)
+
+
+def tag_search(request):
+    search_keyword = request.GET.get('search_keyword')
+    substitute_keyword = re.sub(r'#|\s', '', search_keyword)
+    return redirect('tag-post-list', substitute_keyword)

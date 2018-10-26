@@ -11,6 +11,21 @@
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <title>Instagram</title>
+    <style>
+		.square {
+ 		}
+		.square:before {
+			content: '';
+			padding: 50% 0;
+			display: inline-block;
+		}
+		.square > .thumbnail {
+			display: block;
+			width: 100%;
+			background-size: cover;
+			background-position: center center;
+		}
+	</style>
 </head>
 <body>
     <div id="wrap">
@@ -19,8 +34,8 @@
             <!--좌측 제목부분-->
             <a href="{% url 'posts:post-list' %}" class="navbar-brand">Instagram</a>
             <!--검색 form부분-->
-            <form action="#" class="form-inline ml-md-auto">
-                <input type="text" class="form-control" placeholder="검색">
+            <form action="{% url 'posts:tag-search' %}" class="form-inline ml-md-auto">
+                <input type="text" name="search_keyword" class="form-control" placeholder="검색">
             </form>
             <!--우측 3개 메뉴 버튼-->
             <ul class="navbar-nav ml-md-auto">
