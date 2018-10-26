@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 #   -> settings.AUTH_USER_MODEL
 User = get_user_model()
 
+
 class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -87,3 +88,16 @@ class SignupForm(forms.Form):
             self.cleaned_data['password2'],
         )
         return user
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'last_name',
+            'first_name',
+            'img_profile',
+            'site',
+            'introduce',
+        ]
