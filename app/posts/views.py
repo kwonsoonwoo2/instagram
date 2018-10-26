@@ -65,3 +65,13 @@ def comment_create(request, post_pk):
             comment.save()
 
             return redirect('posts:post-list')
+
+
+def tag_post_list(request, tag_name):
+    posts = Post.objects.filter(
+        comment__tags__name=tag_name
+    )
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'posts/tag_post_list.html', context)
