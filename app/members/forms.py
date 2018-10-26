@@ -1,7 +1,11 @@
 from django import forms
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.models import User
 
+# 1. 사용자 모델 클래스에 대한 참조가 필요할때
+# get_user_model() 함수를 사용
+#   -> settings.AUTH_USER_MODEL
+User = get_user_model()
 
 class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
