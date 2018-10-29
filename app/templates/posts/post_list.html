@@ -22,6 +22,27 @@
             <div class="card-body">
                 <img src="{{ post.photo.url }}" class="card-img-top">
 
+                {% if user.is_authenticated %}
+				<form action="{% url 'posts:post-like-toggle' post_pk=post.pk %}"
+							method="POST">
+					{% csrf_token %}
+					<button class="btn btn-primary"
+					        type="submit">좋아요/좋아요해제</button>
+					        type="submit">
+						{% if user in post.like_users.all %}
+							좋아요 해제
+						{% else %}
+							좋아요
+						{% endif %}
+					</button>
+				</form>
+				{% endif %}
+
+                <div>
+					<span>좋아하는 사람 </span>
+ 					<strong>{{ post.like_users.all|join:", " }}</strong>
+ 				</div>
+
                 <ul class="list-unstyled">
                     {% for comment in post.comments.all %}
                     <li>
