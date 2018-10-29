@@ -21,6 +21,12 @@ class Post(models.Model):
         verbose_name_plural = f'{verbose_name} 목록'
         ordering = ['-pk']
 
+    def like_toggle(self, user):
+        pass
+        postlike, postlike_created = self.postlike_set.get_or_create(user=user)
+        if not postlike_created:
+            postlike.delete()
+
 
 class Comment(models.Model):
     TAG_PATTERN = re.compile(r'#(?P<tag>\w+)')
