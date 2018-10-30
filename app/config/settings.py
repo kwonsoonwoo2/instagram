@@ -43,6 +43,11 @@ FACEBOOK_APP_SECRET = secrets['FACEBOOK_APP_SECRET']
 # login_required decorator에 의해
 # 로그인 페이지로 이동해야 할 때, 그 이동할 URL 또는 URL pattern name
 LOGIN_URL = 'members:login'
+# authenticate() 함수 호출 시 사용할 백엔드 목록
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'members.backends.FacebookBackend',
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
